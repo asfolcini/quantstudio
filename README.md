@@ -12,14 +12,30 @@ QuantStudio is a financial data analysis tool for collecting, processing, and an
 - **Historical Data**: Store and access cleaned datasets for backtesting and research.
 - **CLI/TUI Interface**: Command-line tools for daily operations, reporting, and configuration.
 
-### **Run on Single Ticker**
-Analyze a single asset (e.g., `AAPL.MI`) by fetching its price history, detecting market regimes (trending/sideways), and calculating key metrics like volatility and momentum. This helps you quickly assess if a stock is range-bound or trending, and identify opportunities based on its current behavior.
+### What Each Function Does (And Why It Matters)
+#### **1. Run on Single Ticker**
+Analyzes a single asset (e.g., `AAPL.MI`) by fetching its price history, detecting whether the market is trending or moving sideways, and calculating key metrics like volatility and momentum.
 
-### **Run on Universe**
-Process an entire group of assets (e.g., all FTSE MIB stocks) at once, ranking them by performance, regime, and other metrics. This saves time and lets you compare opportunities across multiple assets, helping you spot the strongest or weakest performers in the current market environment.
+**Why it’s useful**:
+- Quickly assess an asset’s behavior without manual data crunching.
+- Spot if a stock is stuck in a range or trending strongly.
+- Identify abnormal volatility before entering a trade.
 
-### **Setup Discoverer**
-Find high-probability trade setups by filtering for specific conditions (e.g., only momentum trades in trending markets). This reduces guesswork by highlighting opportunities that fit the current market regime, ensuring you focus on strategies with the highest chance of success.
+#### **2. Run on Universe**
+Processes a group of assets (e.g., all FTSE MIB stocks) in one go, ranking them based on performance, regime (trending/sideways), and other metrics.
+
+**Why it’s useful**:
+- Save time: Analyze dozens of assets at once instead of one-by-one.
+- Compare opportunities: Instantly see which stocks are strongest/weakest in the current market regime.
+- Portfolio insights: Quickly rebalance or adjust positions based on relative strength.
+
+#### **3. Setup Discoverer**
+Scans your asset universe to find high-probability trade setups, filtered by market regime and predefined rules (e.g., "only show momentum trades in trending markets").
+
+**Why it’s useful**:
+- Focus on what works: Avoid trades that don’t fit the current market environment.
+- Reduce guesswork: Let the tool surface the best opportunities.
+- Consistency: Apply the same rules across all assets for unbiased comparisons.
 
 ## Installation
 1. **Prerequisites**
