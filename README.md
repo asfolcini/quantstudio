@@ -12,6 +12,15 @@ QuantStudio is a financial data analysis tool for collecting, processing, and an
 - **Historical Data**: Store and access cleaned datasets for backtesting and research.
 - **CLI/TUI Interface**: Command-line tools for daily operations, reporting, and configuration.
 
+### **Run on Single Ticker**
+Analyze a single asset (e.g., `AAPL.MI`) by fetching its price history, detecting market regimes (trending/sideways), and calculating key metrics like volatility and momentum. This helps you quickly assess if a stock is range-bound or trending, and identify opportunities based on its current behavior.
+
+### **Run on Universe**
+Process an entire group of assets (e.g., all FTSE MIB stocks) at once, ranking them by performance, regime, and other metrics. This saves time and lets you compare opportunities across multiple assets, helping you spot the strongest or weakest performers in the current market environment.
+
+### **Setup Discoverer**
+Find high-probability trade setups by filtering for specific conditions (e.g., only momentum trades in trending markets). This reduces guesswork by highlighting opportunities that fit the current market regime, ensuring you focus on strategies with the highest chance of success.
+
 ## Installation
 1. **Prerequisites**
    - Python 3.11+ (verify with `python --version`).
