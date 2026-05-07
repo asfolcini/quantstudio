@@ -34,12 +34,13 @@ def show_main_menu() -> int:
     
     table.add_row("0", "Exit")
     table.add_row("1", "DATA MANAGEMENT")
-    table.add_row("2", "STATISTICAL HEDGE ENGINE")
+    table.add_row("2", "STATISTICAL EDGE ENGINE")
+    table.add_row("3", "EVENT STUDY")
     table.add_row("9", "Configuration")
     
     console.print(table)
     
-    choice = IntPrompt.ask("\nSelect an option", choices=["0", "1", "2", "9"])
+    choice = IntPrompt.ask("\nSelect an option", choices=["0", "1", "2", "3", "9"])
     return choice
 
 
@@ -767,9 +768,9 @@ def show_data_management_menu():
                     
                     console.input("\nPress Enter to continue...")
 
-def show_hedge_engine_menu():
+def show_edge_engine_menu():
     """
-    Display statistical hedge engine menu and handle user choices.
+    Display statistical edge engine menu and handle user choices.
     Follows clean pattern: clear() -> print_header() -> show_menu() -> process -> pause()
     """
     from ui.components import clear, print_header, pause, print_error
@@ -781,16 +782,16 @@ def show_hedge_engine_menu():
 
     while True:
         clear()
-        print_header("STATISTICAL HEDGE ENGINE")
+        print_header("STATISTICAL EDGE ENGINE")
 
         MENU_OPTIONS = {
             "1": "Run on single ticker",
             "2": "Run on universe",
-            "3": "Hedge Discoverer",
+            "3": "Edge Discoverer",
             "0": "Back"
         }
 
-        ch = show_menu("Hedge Engine Options", MENU_OPTIONS, "0")
+        ch = show_menu("Edge Engine Options", MENU_OPTIONS, "0")
 
         if ch == "0":
             return
@@ -798,9 +799,9 @@ def show_hedge_engine_menu():
             run_on_universe()
 
 
-        elif ch == "3":  # Hedge Discoverer
+        elif ch == "3":  # Edge Discoverer
             clear()
-            print_header("HEDGE DISCOVERER - Setup Finder")
+            print_header("EDGE DISCOVERER - Setup Finder")
             
             ticker = Prompt.ask("\nEnter ticker symbol")
             if not ticker.strip():
@@ -845,12 +846,12 @@ def show_hedge_engine_menu():
                 clear()
                 print_header(f"SETUP FINDER RESULTS - {ticker}")
 
-                display_hedge_discover_rich(result)
+                display_edge_discover_rich(result)
                 
             except ImportError:
                 print_error("Setup Engine not available")
             except Exception as exc:
-                print_error(f"Hedge Discoverer Error: {str(exc)}")
+                print_error(f"Edge Discoverer Error: {str(exc)}")
                 import traceback
                 traceback.print_exc()
                 
@@ -906,9 +907,9 @@ def show_hedge_engine_menu():
                 print_error("Unexpected error during edge analysis", exc)
                 pause()
 
-def display_hedge_discover_rich(result: dict) -> None:
+def display_edge_discover_rich(result: dict) -> None:
     """
-    Display Hedge Discoverer results in a rich multi-panel layout.
+    Display edge Discoverer results in a rich multi-panel layout.
     Shows top strategies, their metrics, and setup rules.
     """
     from rich.console import Console
@@ -1214,6 +1215,9 @@ def run_ui():
         elif choice == 1:
             show_data_management_menu()
         elif choice == 2:
-            show_hedge_engine_menu()
+            show_edge_engine_menu()
+        elif choice == 3:
+            from events.event_tui import run_event_study
+            run_event_study()
         elif choice == 9:
             show_config_menu()

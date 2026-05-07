@@ -767,7 +767,7 @@ def show_data_management_menu():
                     
                     console.input("\nPress Enter to continue...")
 
-def show_hedge_engine_menu():
+def show_edge_engine_menu():
     """
     Display statistical hedge engine menu and handle user choices.
     Follows clean pattern: clear() -> print_header() -> show_menu() -> process -> pause()
@@ -1373,6 +1373,6 @@ def run_ui():
         elif choice == 1:
             show_data_management_menu()
         elif choice == 2:
-            show_hedge_engine_menu()
+            show_edge_engine_menu()
         elif choice == 9:
             show_config_menu()
