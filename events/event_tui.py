@@ -34,12 +34,14 @@ def run_event_study():
     except FileNotFoundError as e:
         console.print(f"[red]✗ No data found for {ticker}[/red]")
         console.print("Use [blue]Data Management → Update All Data[/blue] to fetch data first.")
+        input("Press Enter to continue...")
         return
     
     if "error" in results:
         console.print(f"[red]✗ {results['error']}[/red]")
         if results.get("frequency") == 0:
             console.print(f"Tip: Try adjusting thresholds or checking data for {ticker}.")
+        input("Press Enter to continue...")
         return
     
     # Display results
@@ -51,3 +53,21 @@ def run_event_study():
     table.add_row("Day+1 Median", results.get("day+1_median", "N/A"))
     table.add_row("Win Rate", results.get("win_rate", "N/A"))
     console.print(table)
+    
+    # Verbose mode option
+    verbose_input = Prompt.ask("\nShow events? (Y/N)", default="N")
+    if verbose_input.lower() in ("y", "yes"):
+        # Re-run scan to get event details
+        event_list = scanner.scan_price_drops(threshold=threshold) if event_type == "1" else scanner.scan_volatility_spikes(sigma=2.0)
+        if 'event_dates' in event_list:
+            dates_table = Table(title="Detailed Events")
+            dates_table.add_column("Date", style="cyan")
+            dates_table.add_column("Day+1 Return", style="green")
+            for event in event_list['event_dates']:
+                dates_table.add_row(event['date'], f"{event['day+1']:.2%}")
+            console.print(dates_table)
+        else:
+            console.print("[yellow]No event details available.[/yellow]")
+    
+    # Wait for user input before continuing
+    input("Press Enter to continue...")

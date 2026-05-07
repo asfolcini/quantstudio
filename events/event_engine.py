@@ -54,7 +54,8 @@ class EventScanner:
             'events': len(results),
             'frequency': f"{len(results)}/{len(self.data)} days",
             'win_rate': f"{(sum([r['win'] for r in results]) / len(results) * 100):.1f}%",
-            'day+1_median': f"{(pd.Series([r['day+1'] for r in results]).median()*100):.2f}%"}
+            'day+1_median': f"{(pd.Series([r['day+1'] for r in results]).median()*100):.2f}%",
+            'event_dates': results}
 
     def scan_volatility_spikes(self, sigma=2, window=30, lookforward=3):
         """Identify days with volatility > sigma * rolling sigma."""
@@ -77,7 +78,8 @@ class EventScanner:
             'events': len(results),
             'frequency': f"{len(results)}/{len(self.data)} days",
             'win_rate': f"{(sum([r['win'] for r in results]) / len(results) * 100):.1f}%",
-            'day+1_median': f"{(pd.Series([r['day+1'] for r in results]).median()*100):.2f}%"}
+            'day+1_median': f"{(pd.Series([r['day+1'] for r in results]).median()*100):.2f}%",
+            'event_dates': results}
 
     def run_on_universe(self, universe_file="config/universes.json"):
         """Scan all tickers in a universe."""
