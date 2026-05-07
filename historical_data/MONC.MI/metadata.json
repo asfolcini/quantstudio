@@ -1,0 +1,11 @@
+{
+  "name": "Moncler S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "MONC.MI",
+  "provider": "yahoo",
+  "data_points": 3142,
+  "first_date": "2013-12-16 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 12:20:32"
+}

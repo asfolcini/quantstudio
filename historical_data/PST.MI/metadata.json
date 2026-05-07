@@ -1,0 +1,11 @@
+{
+  "name": "Poste Italiane S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "PST.MI",
+  "provider": "yahoo",
+  "data_points": 2673,
+  "first_date": "2015-10-27 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 12:20:39"
+}

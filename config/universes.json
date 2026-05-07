@@ -59,7 +59,6 @@
     "G.MI",
     "INW.MI",
     "ISP.MI",
-    "ITG.MI",
     "IVG.MI",
     "LDO.MI",
     "MB.MI",
@@ -72,10 +71,8 @@
     "SPM.MI",
     "SRG.MI",
     "STLAM.MI",
-    "STM.MI",
     "TEN.MI",
     "TRN.MI",
-    "UCG.MI",
-    "US.MI"
+    "UCG.MI"
   ]
 }

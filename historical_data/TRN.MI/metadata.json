@@ -1,0 +1,11 @@
+{
+  "name": "Terna S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "TRN.MI",
+  "provider": "yahoo",
+  "data_points": 5562,
+  "first_date": "2004-06-23 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 12:20:54"
+}

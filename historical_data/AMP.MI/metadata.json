@@ -1,0 +1,11 @@
+{
+  "name": "Amplifon S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "AMP.MI",
+  "provider": "yahoo",
+  "data_points": 6274,
+  "first_date": "2001-10-01 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 12:20:03"
+}
