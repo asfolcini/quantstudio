@@ -1,0 +1,11 @@
+{
+  "name": "iShares Core EURO STOXX 50 UCITS ETF (DE)",
+  "exchange": "GER",
+  "currency": "EUR",
+  "ticker": "EXW1.DE",
+  "provider": "yahoo",
+  "data_points": 4657,
+  "first_date": "2008-01-02 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:19"
+}

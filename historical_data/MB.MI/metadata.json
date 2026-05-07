@@ -1,0 +1,11 @@
+{
+  "name": "Mediobanca Banca di Credito Finanziario S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "MB.MI",
+  "provider": "yahoo",
+  "data_points": 8209,
+  "first_date": "1987-05-04 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:28"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "State Street SPDR Russell 2000 US Small Cap UCITS ETF",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "R2US.MI",
+  "provider": "yahoo",
+  "data_points": 2482,
+  "first_date": "2015-02-03 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:35"
+}

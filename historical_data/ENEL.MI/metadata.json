@@ -1,0 +1,11 @@
+{
+  "name": "Enel SpA",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "ENEL.MI",
+  "provider": "yahoo",
+  "data_points": 6773,
+  "first_date": "1999-11-02 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:14"
+}

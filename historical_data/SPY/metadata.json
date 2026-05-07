@@ -1,0 +1,11 @@
+{
+  "name": "State Street SPDR S&P 500 ETF Trust",
+  "exchange": "PCX",
+  "currency": "USD",
+  "ticker": "SPY",
+  "provider": "yahoo",
+  "data_points": 8374,
+  "first_date": "1993-01-29 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:42"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Saipem SpA",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "SPM.MI",
+  "provider": "yahoo",
+  "data_points": 8795,
+  "first_date": "1987-02-02 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:41"
+}

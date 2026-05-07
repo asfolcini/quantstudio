@@ -1,0 +1,11 @@
+{
+  "name": "Guardforce AI Co., Limited",
+  "exchange": "NCM",
+  "currency": "USD",
+  "ticker": "GFAI",
+  "provider": "yahoo",
+  "data_points": 1155,
+  "first_date": "2021-09-29 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:22"
+}

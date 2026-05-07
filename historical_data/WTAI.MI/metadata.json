@@ -1,0 +1,11 @@
+{
+  "name": "WisdomTree Artificial Intelligence UCITS ETF - USD Acc",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "WTAI.MI",
+  "provider": "yahoo",
+  "data_points": 1882,
+  "first_date": "2018-11-30 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:49"
+}

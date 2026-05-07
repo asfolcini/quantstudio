@@ -1,0 +1,11 @@
+{
+  "name": "Invesco STOXX Europe 600 Optimised Banks UCITS ETF",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "X7PS.MI",
+  "provider": "yahoo",
+  "data_points": 2392,
+  "first_date": "2014-09-10 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:50"
+}

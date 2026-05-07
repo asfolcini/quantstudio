@@ -1,0 +1,213 @@
+from rich.console import Console
+from rich.table import Table
+from rich.prompt import Prompt, IntPrompt
+from rich.panel import Panel
+from rich import box
+from rich.text import Text
+from datetime import date
+from core.global_var import BUILD,URL,URL_TITLE
+from core.config_loader import get_config, update_config
+from core.ui_mappings import LANGUAGE_MAP, DEFAULT_LANGUAGE, REGION_MAP, DEFAULT_REGION
+from ui.console import console
+
+
+def run_on_universe() -> None:
+    """
+    Menu 2: Run quantitative analysis on a universe of tickers.
+    Universes are loaded from config/universes.json. Each ticker in the selected
+    universe is analyzed using EdgeEngine, and results are rendered in a Rich table.
+    """
+    from rich.console import Console
+    from rich.table import Table
+    from rich.panel import Panel
+    from rich.progress import Progress, SpinnerColumn, TimeElapsedColumn, BarColumn
+    import json
+    import pandas as pd
+    import os
+    from pathlib import Path
+    from datetime import datetime
+
+    console = Console()
+    historical_dir = Path("/Users/alberto.sfolcini/Development/quantstudio/historical_data")
+
+    # === STEP 1: LOAD UNIVERSES FROM config/universes.json ===
+    universe_file = Path("config/universes.json")
+    if not universe_file.exists():
+        console.print(Panel(
+            "[bold red]File config/universes.json not found![/bold red]", 
+            title="Error"
+        ))
+        console.print(f"[dim]Tip: Create {universe_file.resolve()} with your universes.[/dim]")
+        return
+
+    try:
+        with open(universe_file, 'r') as f:
+            universes = json.load(f)
+    except json.JSONDecodeError as e:
+        console.print(Panel(f"[bold red]JSON error in {universe_file}: {e}[/bold red]", title="Error"))
+        return
+
+    if not universes:
+        console.print(Panel("[bold red]No universes found.[/bold red]", title="Error"))
+        return
+
+    # === STEP 2: DISPLAY UNIVERSES ===
+    console.print("\n[bold cyan]Available Universes[/bold cyan]")
+    universe_list = list(universes.keys())
+
+    table = Table(title="Universes", show_header=True)
+    table.add_column("#", style="magenta")
+    table.add_column("Universe Name", style="green")
+    table.add_column("# Tickers", style="yellow")
+
+    sorted_universes = sorted(universes.items(), key=lambda x: len(x[1]), reverse=True)
+    for idx, (name, tickers) in enumerate(sorted_universes, start=1):
+        table.add_row(str(idx), name, str(len(tickers)))
+
+    console.print(table)
+
+    # === STEP 3: PROMPT USER TO SELECT UNIVERSE ===
+    sorted_universes = sorted(universes.items(), key=lambda x: len(x[1]), reverse=True)
+    while True:
+        choice_input = console.input(f"\nSelect universe by number [1-{len(sorted_universes)}]: ")
+        try:
+            choice_idx = int(choice_input) - 1
+            if 0 <= choice_idx < len(sorted_universes):
+                universe_name = sorted_universes[choice_idx][0]
+                selected_universe = universes[universe_name]
+                break
+            else:
+                console.print(f"[red]Invalid choice. Enter a number between 1 and {len(sorted_universes)}.[/red]")
+        except ValueError:
+            console.print("[red]Please enter a valid number.[/red]")
+
+    console.print(f"\n[green]Selected: {universe_name} with {len(selected_universe)} tickers[/green]")
+
+    # === STEP 4: PROCESS EACH TICKER ===
+    results = []  # List of dicts {ticker, signal, confidence, pf, winrate, dd, last_price}
+
+    with Progress(
+        SpinnerColumn(),
+        BarColumn(),
+        TimeElapsedColumn(),
+        console=console,
+        expand=True,
+        transient=True
+    ) as progress:
+        main_task = progress.add_task(
+            f"[cyan]Analyzing {len(selected_universe)} tickers...",
+            total=len(selected_universe)
+        )
+
+        for ticker in selected_universe:
+            try:
+                 # === Load data ===
+                ticker_path = historical_dir / ticker / "data.csv"
+                if not ticker_path.exists():
+                    progress.console.print(f"[yellow]⚠ Skipped {ticker}: No data file[/yellow]")
+                    progress.advance(main_task)
+                    continue
+
+                df = pd.read_csv(ticker_path)
+                df['datetime'] = pd.to_datetime(df['datetime'])
+                df.sort_values('datetime', inplace=True)
+                df = df.dropna()  # Remove any rows with NaN values
+
+                if len(df) < 30:
+                    progress.console.print(f"[yellow]⚠ Skipped {ticker}: Insufficient data ({len(df)} bars)[/yellow]")
+                    progress.advance(main_task)
+                    continue
+
+                # Ensure df has valid OHLCV
+                if any(df[c].isna().sum() > 0 for c in ['open', 'high', 'low', 'close', 'volume']):
+                    df = df.dropna()
+
+                # EdgeEngine requires datetime AS A COLUMN (not an index)
+                # Ensure datetime is a column and properly formatted
+                if 'datetime' not in df.columns:
+                    # If datetime is the index, reset it
+                    if hasattr(df.index, 'name') and df.index.name == 'datetime':
+                        df = df.reset_index()
+
+                # === Run EdgeEngine ===
+                from edge_engine import EdgeEngine
+                engine = EdgeEngine(df)
+                report = engine.generate_report()
+
+                # Extract metrics (use defaults if missing)
+                decision = report.get('decision', {})
+                edge_scores = report.get('edge_scores', {})
+                market_regime = report.get('market_regime', {})
+                indicators = report.get('indicators', {})
+
+                signal = decision.get('bias', 'WAIT')
+                confidence = decision.get('confidence', 'UNKNOWN')
+
+                # Calculate approximate metrics (for ranking)
+                pf = edge_scores.get('long_score', 50) / 100.0 if signal == "BUY WATCH" else \
+                    edge_scores.get('short_score', 50) / 100.0
+                winrate = 0.65  # Default placeholder
+                dd = edge_scores.get('risk_penalty', 10.0) * -1.0
+                last_price = df['close'].iloc[-1]
+
+                results.append({
+                    'ticker': ticker,
+                    'signal': signal,
+                    'confidence': confidence,
+                    'pf': pf,
+                    'winrate': winrate,
+                    'dd': dd,
+                    'last_price': last_price
+                })
+
+                progress.console.print(f"[green]✓ Processed {ticker}: {signal} - {confidence}[/green]")
+
+            except Exception as e:
+                progress.console.print(f"[red]✗ Error on {ticker}: {str(e)}[/red]")
+            finally:
+                progress.advance(main_task)
+
+    # === STEP 5: RANK & DISPLAY RESULTS ===
+    if not results:
+        console.print(Panel("[bold red]No valid results. Check data files.[/bold red]", title="Error"))
+        return
+
+    # Map confidence to sort value
+    confidence_order = {"HIGH": 3, "MEDIUM": 2, "LOW": 1, "UNKNOWN": 0}
+    sorted_results = sorted(
+        results,
+        key=lambda x: (confidence_order.get(x['confidence'], 0), x['pf']),
+        reverse=True
+    )
+
+    # Build Rich table
+    table = Table(
+        title=f"Universe: {universe_name} ({len(selected_universe)} tickers)",
+        show_header=True,
+        box=box.ROUNDED,
+        header_style="bold magenta"
+    )
+    table.add_column("#", style="yellow", width=3)
+    table.add_column("Ticker", style="green")
+    table.add_column("Signal", style="bold", width=15)
+    table.add_column("Confidence", style="cyan", width=10)
+    table.add_column("PF", style="blue", width=8)
+    table.add_column("Winrate", style="green", width=10)
+    table.add_column("DD", style="red", width=8)
+    table.add_column("Last Price", style="yellow", width=12)
+    for idx, res in enumerate(sorted_results, start=1):
+        table.add_row(
+            str(idx),
+            res['ticker'],
+            f"[bold]{res['signal']}[/bold]",
+            res['confidence'],
+            f"{res['pf']:.3f}" if res['pf'] is not None else "N/A",
+            f"{res['winrate']:.1f}%" if res['winrate'] is not None else "N/A",
+            f"{res['dd']:.2f}%" if res['dd'] is not None else "N/A",
+            f"{res['last_price']:.2f}" if res['last_price'] is not None else "N/A"
+        )
+
+    console.print()
+    console.print(table)
+    console.print(f"\n[dim]Press Enter to continue...[/dim]")
+    console.input()

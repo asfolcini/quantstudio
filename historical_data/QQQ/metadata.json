@@ -1,0 +1,11 @@
+{
+  "name": "Invesco QQQ Trust",
+  "exchange": "NGM",
+  "currency": "USD",
+  "ticker": "QQQ",
+  "provider": "yahoo",
+  "data_points": 6832,
+  "first_date": "1999-03-10 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:34"
+}

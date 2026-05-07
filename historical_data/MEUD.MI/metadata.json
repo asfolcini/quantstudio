@@ -1,0 +1,11 @@
+{
+  "name": "Amundi Core Stoxx Europe 600 UCITS ETF Acc",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "MEUD.MI",
+  "provider": "yahoo",
+  "data_points": 555,
+  "first_date": "2024-02-19 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:29"
+}

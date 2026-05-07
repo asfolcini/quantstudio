@@ -1,0 +1,9 @@
+@@ -934,7 +934,7 @@
+ 
+ 
+             except Exception as e:
+-                console.print("[red]Error running edge analysis:[/), str(e)")
++                console.print("[red]Error running edge analysis:[/red]", str(e))
+ 
+             console.input("\nPress Enter to continue...")
+ 

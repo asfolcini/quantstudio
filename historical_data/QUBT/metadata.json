@@ -1,0 +1,11 @@
+{
+  "name": "Quantum Computing Inc.",
+  "exchange": "NCM",
+  "currency": "USD",
+  "ticker": "QUBT",
+  "provider": "yahoo",
+  "data_points": 4846,
+  "first_date": "2007-02-01 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:34"
+}

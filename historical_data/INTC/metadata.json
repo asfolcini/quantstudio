@@ -1,0 +1,11 @@
+{
+  "name": "Intel Corporation",
+  "exchange": "NMS",
+  "currency": "USD",
+  "ticker": "INTC",
+  "provider": "yahoo",
+  "data_points": 11629,
+  "first_date": "1980-03-17 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:25"
+}

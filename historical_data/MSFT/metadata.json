@@ -1,0 +1,11 @@
+{
+  "name": "Microsoft Corporation",
+  "exchange": "NMS",
+  "currency": "USD",
+  "ticker": "MSFT",
+  "provider": "yahoo",
+  "data_points": 10115,
+  "first_date": "1986-03-13 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:30"
+}

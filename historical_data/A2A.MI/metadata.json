@@ -1,0 +1,11 @@
+{
+  "name": "A2A S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "A2A.MI",
+  "provider": "yahoo",
+  "data_points": 6729,
+  "first_date": "2000-01-03 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:04"
+}

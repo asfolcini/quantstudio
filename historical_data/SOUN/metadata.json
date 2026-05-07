@@ -1,0 +1,11 @@
+{
+  "name": "SoundHound AI, Inc.",
+  "exchange": "NGM",
+  "currency": "USD",
+  "ticker": "SOUN",
+  "provider": "yahoo",
+  "data_points": 1009,
+  "first_date": "2022-04-28 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:40"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Prysmian S.p.A.",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "PRY.MI",
+  "provider": "yahoo",
+  "data_points": 4826,
+  "first_date": "2007-05-03 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:32"
+}

@@ -1,0 +1,108 @@
+# TUI Design Proposals for Edge Analysis
+
+## Sample Report Data
+report = {
+  'market_regime': {
+    'trend': 'BULL',
+    'volatility': 'COMPRESSION',
+    'atr': 1.23,
+    'ema_alignments': {above_20: True, above_50: True, above_200: True}
+  },
+  'indicators': {
+    'ema20': 188.50, 'ema50': 184.30, 'ema200': 176.80,
+    'rsi': 65.2, 'atr': 1.23, 'vwap': 185.00,
+    'bb_bandwidth': 15.4
+  },
+  'levels': {
+    's1': 182.50, 's2': 181.00,
+    'r1': 189.75, 'r2': 192.00
+  },
+  'edge': {
+    'long_score': 8.1, 'short_score': 6.2, 'risk_penalty': 0.015
+  },
+  'decision': {
+    'bias': 'LONG', 'confidence': 'MODERATE'
+  },
+  'llm_interpretation': 'The market is showing bullish momentum with compressed \
+volatile. Price holds above all key EMAs and VWAP. Support at 182.50.'
+}
+
+------------------------------------------------------------------------------
+PROPOSAL 1: Simple 3-Table Layout
+------------------------------------------------------------------------------
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ Edge Analysis - AAPL                                            │
+├─────────────────────────────────────────────────────────────────────┤
+│  REGIME  │  TREND  │  VOLATILITY  │   BIAS   │  CONFIDENCE  │
+├─────────────────────────────────────────────────────────────────────┤
+│  Current  │  🐂 BULL │  📏 COMPRESS │  LONG ✓  │  MODERATE    │
+│  EMA Align│ ↑↑↑     │  ATR: 1.23   │          │              │
+├───────────────┬─────────────┬─────────────┬───────────┐
+│  EDGE SCORES  │  LONG: 8.1   │ SHORT: 6.2   │ PEN: 0.02 │
+├───────────┬───────────────────┬─────────────┬─────────────┤
+│  KEY LVL  │ Sup: 182.50-181.00 │ Res: 189.75-192.00 │ VWAP:185.00│
+│  INDI     │ EMA:188.50-184.30 │ RSI: 65.2   │ BB BW:15.4 │
+└───────────┴───────────────────┴─────────────┴─────────────┘
+
+🤖 AI SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The market is showing bullish momentum with compressed volatility. Price \nholds above all key EMAs and VWAP. Support at 182.50 with resistance at \n189.75. Action: Consider long entry above 188.50.
+
+ [dim](Press Enter to continue...)[/]
+
+------------------------------------------------------------------------------
+PROPOSAL 2: Table + Summary Card
+------------------------------------------------------------------------------
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ Edge Analysis - AAPL                                            │
+├─────────────────────────────────────────────────────────────────────┤
+│  Market Regime  │ 🐂 BULLISH │ 📏 LOW VOL │ ATR 1.23 │ ↑↑↑│
+├─────────────────────────────────────────────────────────────────────┤
+│  Edge Scores    │ Long: 8.1 [████████--] │ Short: 6.2 [████----] │ │
+│                 │ Risk Penalty: 1.5%   │ Position: Small         │ │
+├─────────────────────────────────────────────────────────────────────┤
+│  Decision       │ Bias: LONG ✓ │ Confidence: MODERATE     │ │
+├─────────────────────────────────────────────────────────────────────┤
+│  Technicals     │ EMA20:188.50 │ EMA50:184.30 │ RSI:65.2   │
+│  Key Levels     │ Sup:182.50/181.00 │ Res:189.75/192.00 │ VWAP:185 │
+└─────────────────────────────────────────────────────────────────────┘
+
+🤖 Trading Summary
+┌─────────────────────────────────────────────────────────────────────┐
+│ The market is showing bullish momentum with compressed volatility.  │
+│ Price holds above all key EMAs and VWAP.  Support at 182.50 with   │
+│ resistance at 189.75.  Action: Consider long entry above 188.50.     │
+└─────────────────────────────────────────────────────────────────────┘
+
+ [dim](Press Enter to continue...)[/]
+
+------------------------------------------------------------------------------
+PROPOSAL 3: Vertical Sections with Icons
+------------------------------------------------------------------------------
+
+[bold cyan]Edge Analysis - AAPL[/]
+
+🎯 Market Regime
+  Trend: 🐂 BULL ( ↑20 ↑50 ↑200 )  |  Volatility: 📏 COMPRESSION  |  ATR: 1.23
+
+⚔️ Edge Scores & Risk
+  Long: 8.1 [████████--]  |  Short: 6.2 [████----]  |  Penalty: 1.5%
+  Position: SMALL  
+
+🏁 Decision
+  Bias: LONG ✓  |  Confidence: MODERATE
+
+📊 Technicals
+  EMA20: 188.50  |  EMA50: 184.30  |  EMA200: 176.80
+  RSI: 65.2  |  VWAP: 185.00  |  BB Bandwidth: 15.4%
+
+📏 Key Levels
+  Support: 182.50 / 181.00  |  Resistance: 189.75 / 192.00
+
+🤖 AI Summary
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+The market is showing bullish momentum with compressed volatility. Price \nholds above all key EMAs and VWAP. Support at 182.50 with resistance at \n189.75. Action: Consider long entry above 188.50.
+
+ [dim](Press Enter to continue...)[/]

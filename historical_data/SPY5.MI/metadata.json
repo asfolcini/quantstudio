@@ -1,0 +1,11 @@
+{
+  "name": "State Street SPDR S&P 500 UCITS ETF",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "SPY5.MI",
+  "provider": "yahoo",
+  "data_points": 3582,
+  "first_date": "2012-03-19 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:42"
+}

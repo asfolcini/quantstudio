@@ -1,0 +1,11 @@
+{
+  "name": "iShares J.P. Morgan $ EM Bond EUR Hedged UCITS ETF (Dist)",
+  "exchange": "MIL",
+  "currency": "EUR",
+  "ticker": "EMBE.MI",
+  "provider": "yahoo",
+  "data_points": 2724,
+  "first_date": "2015-08-05 00:00:00",
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-07 11:46:13"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "D-Wave Quantum Inc.",
+  "exchange": "NYQ",
+  "currency": "USD",
+  "ticker": "QBTS",
+  "provider": "yahoo",
+  "data_points": 1355,
+  "first_date": "2020-12-11 00:00:00",
+  "last_date": "2026-05-06 00:00:00",
+  "last_update": "2026-05-07 11:46:33"
+}
