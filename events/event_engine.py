@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 from pathlib import Path
 import json
 import warnings
@@ -6,15 +7,22 @@ import warnings
 # Simple helper functions
 def load_ticker_data(ticker):
     """Load OHLCV data for a ticker."""
-    data_path = Path(f"historical_data/{ticker}/data.csv")
-    try:
-        df = pd.read_csv(data_path)
+    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    ticker_path = os.path.join(data_dir, ticker)
+    
+    if not os.path.exists(ticker_path):
+        raise FileNotFoundError(f"No data found for {ticker}")
+    
+    # Load data.csv
+    data_file = os.path.join(ticker_path, "data.csv")
+    if os.path.exists(data_file):
+        df = pd.read_csv(data_file)
         df['datetime'] = pd.to_datetime(df['datetime'])
         df = df.sort_values('datetime').set_index('datetime')
         df['return'] = df['close'].pct_change()
         return df.reset_index()
-    except FileNotFoundError:
-        raise FileNotFoundError(f"No data found for {ticker}")
+    else:
+        raise FileNotFoundError(f"Data file missing for {ticker}")
 
 
 class EventScanner:
@@ -23,6 +31,8 @@ class EventScanner:
     def __init__(self, ticker):
         self.ticker = ticker
         self.data = load_ticker_data(ticker)
+        if len(self.data) < 30:
+            raise ValueError(f"Not enough data for {ticker} (need ≥30 days)")
     
     def scan_price_drops(self, threshold=-0.10, lookforward=3):
         """Identify days with significant price drops."""
