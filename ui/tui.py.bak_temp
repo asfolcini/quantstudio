@@ -1,4 +1,0 @@
-                # Display results with rich TUI
-                clear()
-                print_header(f"SETUP FINDER RESULTS - {ticker}")
-                display_hedge_discover_rich(result)
