@@ -1,6 +1,7 @@
 from rich.console import Console
 from rich.prompt import Prompt, IntPrompt
 from rich.table import Table
+from rich.panel import Panel
 from events.event_engine import EventScanner
 
 console = Console()
