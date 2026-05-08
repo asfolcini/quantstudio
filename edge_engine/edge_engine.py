@@ -102,7 +102,8 @@ class EdgeEngine:
     def _load_config(self):
         """Load configuration from config/config.json."""
         # Get the absolute path to the project root
-        project_root = '/Users/alberto.sfolcini/Development/quantstudio'
+        from pathlib import Path
+        project_root = Path(__file__).parent.parent
         config_path = os.path.join(project_root, 'config', 'config.json')
         
         try:

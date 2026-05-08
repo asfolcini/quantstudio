@@ -1036,7 +1036,7 @@ def run_on_universe() -> None:
     from pathlib import Path
 
     console = Console()
-    historical_dir = Path("/Users/alberto.sfolcini/Development/quantstudio/historical_data")
+    historical_dir = Path(__file__).parent.parent / "historical_data"
 
     # Load universes from config/universes.json
     universe_file = Path("config/universes.json")

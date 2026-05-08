@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "DIA.MI",
   "provider": "yahoo",
-  "data_points": 4771,
+  "data_points": 4772,
   "first_date": "2007-07-19 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:12"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:14"
 }

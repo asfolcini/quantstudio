@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "CPR.MI",
   "provider": "yahoo",
-  "data_points": 6335,
+  "data_points": 6336,
   "first_date": "2001-07-06 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:11"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:12"
 }

@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "SPY",
   "provider": "yahoo",
-  "data_points": 8374,
+  "data_points": 8375,
   "first_date": "1993-01-29 00:00:00",
-  "last_date": "2026-05-06 00:00:00",
-  "last_update": "2026-05-07 12:20:49"
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-08 11:30:38"
 }

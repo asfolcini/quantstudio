@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "G.MI",
   "provider": "yahoo",
-  "data_points": 10234,
+  "data_points": 10235,
   "first_date": "1986-07-25 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:20"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:19"
 }

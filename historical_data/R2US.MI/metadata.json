@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "R2US.MI",
   "provider": "yahoo",
-  "data_points": 2482,
+  "data_points": 2483,
   "first_date": "2015-02-03 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:42"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:34"
 }

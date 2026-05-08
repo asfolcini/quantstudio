@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "SGLD.MI",
   "provider": "yahoo",
-  "data_points": 2871,
+  "data_points": 2872,
   "first_date": "2014-11-28 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:45"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:36"
 }

@@ -3,7 +3,8 @@ import os
 from typing import Dict, List, Any
 from data.metadata import load_metadata
 
-UNIVERSES_FILE = "/Users/alberto.sfolcini/Development/quantstudio/config/universes.json"
+from pathlib import Path
+UNIVERSES_FILE = Path(__file__).parent.parent / "config" / "universes.json"
 
 def load_universes() -> Dict[str, List[str]]:
     """

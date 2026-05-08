@@ -7,7 +7,8 @@ import warnings
 # Simple helper functions
 def load_ticker_data(ticker):
     """Load OHLCV data for a ticker."""
-    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    from pathlib import Path
+    data_dir = Path(__file__).parent.parent / "historical_data"
     ticker_path = os.path.join(data_dir, ticker)
     
     if not os.path.exists(ticker_path):

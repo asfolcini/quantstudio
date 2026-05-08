@@ -1,4 +1,5 @@
 from typing import List, Dict, Any
+from pathlib import Path
 import os
 import json
 import pandas as pd
@@ -12,7 +13,7 @@ def list_tickers() -> List[str]:
     Returns:
         List of ticker names
     """
-    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    data_dir = Path(__file__).parent.parent / "historical_data"
     if not os.path.exists(data_dir):
         return []
     
@@ -28,7 +29,7 @@ def add_ticker(ticker: str) -> bool:
     Returns:
         True if created successfully, False if already exists
     """
-    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    data_dir = Path(__file__).parent.parent / "historical_data"
     ticker_path = os.path.join(data_dir, ticker)
     
     if os.path.exists(ticker_path):
@@ -45,7 +46,7 @@ def remove_ticker(ticker: str) -> bool:
     Returns:
         True if removed successfully, False if doesn't exist
     """
-    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    data_dir = Path(__file__).parent.parent / "historical_data"
     ticker_path = os.path.join(data_dir, ticker)
     
     if not os.path.exists(ticker_path):
@@ -63,7 +64,7 @@ def get_provider_files(ticker: str) -> List[str]:
     Returns:
         List of file names (e.g., ['raw_yahoo.csv'])
     """
-    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    data_dir = Path(__file__).parent.parent / "historical_data"
     ticker_path = os.path.join(data_dir, ticker)
     
     if not os.path.exists(ticker_path):
@@ -108,7 +109,7 @@ def inspect_data(ticker: str) -> Dict[str, Any]:
     Returns:
         Dict with last_10_rows and metadata
     """
-    data_dir = "/Users/alberto.sfolcini/Development/quantstudio/historical_data"
+    data_dir = Path(__file__).parent.parent / "historical_data"
     ticker_path = os.path.join(data_dir, ticker)
     
     if not os.path.exists(ticker_path):

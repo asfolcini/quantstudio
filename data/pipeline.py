@@ -55,7 +55,8 @@ def get_historical_data(ticker: str, provider: str = "yahoo", mode: str = "updat
             cleaned_data['volume'] = 0
              
         # Step 4: Save to storage
-        data_dir = f"/Users/alberto.sfolcini/Development/quantstudio/historical_data/{ticker}"
+        from pathlib import Path
+        data_dir = Path(__file__).parent.parent / "historical_data" / ticker
         os.makedirs(data_dir, exist_ok=True)
          
         # Handle different sync modes

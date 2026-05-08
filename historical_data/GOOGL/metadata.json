@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "GOOGL",
   "provider": "yahoo",
-  "data_points": 5463,
+  "data_points": 5464,
   "first_date": "2004-08-19 00:00:00",
-  "last_date": "2026-05-06 00:00:00",
-  "last_update": "2026-05-07 12:20:22"
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-08 11:30:21"
 }

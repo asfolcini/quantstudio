@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "IVG.MI",
   "provider": "yahoo",
-  "data_points": 1102,
+  "data_points": 1103,
   "first_date": "2022-01-03 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:29"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:26"
 }

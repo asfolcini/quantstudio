@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "NFLX",
   "provider": "yahoo",
-  "data_points": 6027,
+  "data_points": 6028,
   "first_date": "2002-05-23 00:00:00",
-  "last_date": "2026-05-06 00:00:00",
-  "last_update": "2026-05-07 12:20:36"
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-08 11:30:30"
 }

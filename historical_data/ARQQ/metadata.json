@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "ARQQ",
   "provider": "yahoo",
-  "data_points": 1280,
+  "data_points": 1281,
   "first_date": "2021-04-01 00:00:00",
-  "last_date": "2026-05-06 00:00:00",
-  "last_update": "2026-05-07 12:20:04"
+  "last_date": "2026-05-07 00:00:00",
+  "last_update": "2026-05-08 11:30:08"
 }

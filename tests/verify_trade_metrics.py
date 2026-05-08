@@ -6,7 +6,9 @@ sys.path.insert(0, '/Users/alberto.sfolcini/Development/quantstudio')
 import pandas as pd
 
 # Load data
-df = pd.read_csv('/Users/alberto.sfolcini/Development/quantstudio/historical_data/ENI.MI/data.csv')
+from pathlib import Path
+data_path = Path(__file__).parent.parent / "historical_data" / "ENI.MI" / "data.csv"
+df = pd.read_csv(data_path)
 df['datetime'] = pd.to_datetime(df['datetime'])
 df.set_index('datetime', inplace=True)
 

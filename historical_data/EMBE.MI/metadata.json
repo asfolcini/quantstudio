@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "EMBE.MI",
   "provider": "yahoo",
-  "data_points": 2724,
+  "data_points": 2725,
   "first_date": "2015-08-05 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-07 12:20:14"
+  "last_date": "2026-05-08 00:00:00",
+  "last_update": "2026-05-08 11:30:14"
 }

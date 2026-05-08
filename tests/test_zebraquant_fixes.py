@@ -17,7 +17,7 @@ def test_backtest_pf_calculation():
     print("=" * 50)
     
     # Load test data
-    df = pd.read_csv('/Users/alberto.sfolcini/Development/quantstudio/historical_data/ENI.MI/data.csv')
+    df = pd.read_csv(data_path)
     df['datetime'] = pd.to_datetime(df['datetime'])
     df.set_index('datetime', inplace=True)
     
@@ -68,7 +68,7 @@ def test_walkforward_dd_aggregation():
     from setup_engine.walk_forward import WalkForwardValidator
     
     # Load data
-    df = pd.read_csv('/Users/alberto.sfolcini/Development/quantstudio/historical_data/ENI.MI/data.csv')
+    df = pd.read_csv(data_path)
     df['datetime'] = pd.to_datetime(df['datetime'])
     df.set_index('datetime', inplace=True)
     
@@ -112,7 +112,7 @@ def test_runner_output_integration():
     from setup_engine.runner import run
     
     # Load data
-    df = pd.read_csv('/Users/alberto.sfolcini/Development/quantstudio/historical_data/ENI.MI/data.csv')
+    df = pd.read_csv(data_path)
     df['datetime'] = pd.to_datetime(df['datetime'])
     df.set_index('datetime', inplace=True)
     
