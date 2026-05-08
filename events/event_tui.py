@@ -163,14 +163,14 @@ def run_event_study():
     }
     
     def generate_llm_interpretation():
+        import json
+        import requests
         try:
             config = get_config()  # Load config from file
+            report_language = config.get("report_language", "english")  # Read language from config
             base_url = config.get('llm', {}).get('api_url')
             api_key = config.get('llm', {}).get('api_key')
-            if not base_url or not api_key:
-                return "[yellow]LLM not configured in config.json[/yellow]"
             
-            import requests
             headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
             data = {
                 "model": "mistral-small",
@@ -189,7 +189,7 @@ def run_event_study():
     # Generate and display AI interpretation
     console.print(Panel(
         generate_llm_interpretation(),
-        title="[bold blue]🤖 Automated Interpretation[/bold blue]",
+        title="[bold blue] AI Interpretation[/bold blue]",
         border_style="blue",
         padding=(1, 1),
         expand=True
