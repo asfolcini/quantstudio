@@ -137,7 +137,6 @@ def run_event_study():
     
     # Add AI interpretation via LLM
     from core.config_loader import get_config
-    report_language = get_config().get("report_language", "english")
     
     # Multilingual prompt templates
     PROMPT_TEMPLATES = {
@@ -165,6 +164,7 @@ def run_event_study():
     
     def generate_llm_interpretation():
         try:
+            config = get_config()  # Load config from file
             base_url = config.get('llm', {}).get('api_url')
             api_key = config.get('llm', {}).get('api_key')
             if not base_url or not api_key:
