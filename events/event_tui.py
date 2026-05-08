@@ -134,6 +134,66 @@ def run_event_study():
     
     console.print(table)
     
+    # Add AI interpretation via LLM
+    from core.config_loader import get_config
+    report_language = get_config().get("report_language", "english")
+    
+    # Multilingual prompt templates
+    PROMPT_TEMPLATES = {
+        "italian":"""
+        Analizza questi risultati di un Event Study per {ticker} ({event_type}).
+        Rispondi SOLO in italiano, massimo 100 parole.
+        Considera questi punti:
+        1. Sintesi (numero di eventi e frequenza).
+        2. Andamenti (rendimenti a Day+1/Day+2 e win rate).
+        3. Suggerimenti operativi basati sui dati.
+        
+        {data}
+        """,
+        "english":"""
+        Analyze these Event Study results for {ticker} ({event_type}).
+        Answer ONLY in English, 100 word max.
+        Address:
+        1. Summary (event count and frequency).
+        2. Trends (Day+1/Day+2 returns and win rate).
+        3. Actionable suggestions from the data.
+        
+        {data}
+        """
+    }
+    
+    def generate_llm_interpretation():
+        try:
+            base_url = config.get('llm', {}).get('api_url')
+            api_key = config.get('llm', {}).get('api_key')
+            if not base_url or not api_key:
+                return "[yellow]LLM not configured in config.json[/yellow]"
+            
+            import requests
+            headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+            data = {
+                "model": "mistral-small",
+                "messages": [{"role": "user", "content": PROMPT_TEMPLATES.get(report_language, PROMPT_TEMPLATES["english"]).format(
+                    ticker=ticker, event_type=event_title, data=json.dumps(results, indent=2)
+                )}]
+            }
+            url = base_url.rstrip('/')  # Clean URL
+            response = requests.post(url, headers=headers, json=data, timeout=15)
+            if response.status_code == 200:
+                return response.json()["choices"][0]["message"]["content"].strip()
+            return f"[red]LLM request failed with HTTP {response.status_code}: {response.text}[/red]"
+        except Exception as e:
+            return f"[red]LLM Error: {str(e)}[/red]"
+    
+    # Generate and display AI interpretation
+    console.print(Panel(
+        generate_llm_interpretation(),
+        title="[bold blue]🤖 Automated Interpretation[/bold blue]",
+        border_style="blue",
+        padding=(1, 1),
+        expand=True
+    ))
+    
     # Verbose mode option
     verbose_input = Prompt.ask("\nShow events? (Y/N)", default="N")
     if verbose_input.lower() in ("y", "yes"):
