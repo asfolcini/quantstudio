@@ -10,13 +10,30 @@ def run_event_study():
     """Minimalistic event study UI."""
     from ui.console import console
     
+    # Helper functions for formatting values (defined at the top for scope access)
+    def format_value(value, suffix="%"):
+        if isinstance(value, (int, float)):
+            return f"{value:.1f}{suffix}"
+        return "N/A"
+    
+    def format_win_rate(value):
+        if isinstance(value, (int, float)):
+            return f"{int(value)}%"
+        return "N/A"
+    
     console.print("🔍 Event Study", style="bold cyan")
     
-    ticker = Prompt.ask("Enter ticker symbol")
+    # Input ticker with validation to prevent empty/blank entries
+    while True:
+        ticker = Prompt.ask("Enter ticker symbol").strip().upper()  # Normalize to uppercase & remove spaces
+        if ticker and len(ticker) >= 2:  # Ensure non-empty and at least 2 characters
+            break
+        console.print("[red]Error: Ticker must be at least 2 characters.[/red]")
     
     # Event type selection
     console.print("\n[1] Price Drop Event (-10% default)")
     console.print("[2] Volatility Spike (>2σ default)")
+    console.print("[3] Price Surge Event (+5% default)")  # New option
     event_type = Prompt.ask("Choose event type", default="1")
     
     scanner = EventScanner(ticker)
@@ -24,13 +41,55 @@ def run_event_study():
     # Run selected scan
     try:
         if event_type == "1":
-            threshold = -0.10  # -10%
+            # Ask for custom threshold percentage (e.g., 10 for -10%)
+            while True:
+                threshold_pct = Prompt.ask(
+                    "Enter price drop threshold (as %, e.g., 10 for -10%)",
+                    default="10"
+                )
+                try:
+                    threshold_pct = float(threshold_pct)
+                    if threshold_pct > 0:
+                        threshold = -threshold_pct / 100  # Convert to decimal (e.g., 10 → -0.10)
+                        event_title = f"{int(-100*threshold)}% Price Drop Events"
+                        break
+                    console.print("[red]Error: Threshold must be a positive number (e.g., 10 for -10%).[/red]")
+                except ValueError:
+                    console.print("[red]Error: Please enter a valid number.[/red]")
             results = scanner.scan_price_drops(threshold=threshold)
-            event_title = f"{int(-100*threshold)}% Price Drop Events"
-        else:
-            sigma = 2.0
-            results = scanner.scan_volatility_spikes(sigma=sigma)
-            event_title = f">{sigma}σ Volatility Events"
+        elif event_type == "2":
+            # Ask for custom sigma multiplier
+            while True:
+                sigma_input = Prompt.ask(
+                    "Enter volatility multiplier (sigma, e.g., 2.0)",
+                    default="2.0"
+                )
+                try:
+                    sigma = float(sigma_input)
+                    if sigma > 0:
+                        event_title = f">{sigma}σ Volatility Events"
+                        results = scanner.scan_volatility_spikes(sigma=sigma)
+                        break
+                except ValueError:
+                    console.print("[red]Error: Please enter a valid number.[/red]")
+        
+        elif event_type == "3":  # Price Surge Event
+            while True:
+                threshold_pct = Prompt.ask(
+                    "Enter price surge threshold (as %, e.g., 5 for +5%)",
+                    default="5"
+                )
+                try:
+                    threshold_pct = float(threshold_pct)
+                    if threshold_pct > 0:
+                        threshold = threshold_pct / 100  # Convert to decimal (e.g., 5 → 0.05)
+                        event_title = f"{threshold_pct}% Price Surge Events"
+                        results = scanner.scan_price_surges(threshold=threshold)
+                        break
+                    console.print("[red]Error: Threshold must be a positive number.[/red]")
+                except ValueError:
+                    console.print("[red]Error: Please enter a valid number.[/red]")
+                    continue
     except FileNotFoundError as e:
         console.print(f"[red]✗ No data found for {ticker}[/red]")
         console.print("Use [blue]Data Management → Update All Data[/blue] to fetch data first.")
@@ -46,25 +105,62 @@ def run_event_study():
     
     # Display results
     console.print(f"\n📊 {ticker} Event Study: {event_title}", style="bold green")
+    console.print(f"[bold yellow]Occorrenza Evento: {results.get('events', 0)}[/bold yellow]")
+    
+    # Create table with columnDay+1 to Day+5
     table = Table(title="Event Study Results")
     table.add_column("Metric", style="bold")
-    table.add_column("Value", style="green")
-    table.add_row("Frequency", results.get("frequency", "N/A"))
-    table.add_row("Day+1 Median", results.get("day+1_median", "N/A"))
-    table.add_row("Win Rate", results.get("win_rate", "N/A"))
+    table.add_column("Day+1", style="green")
+    table.add_column("Day+2", style="green")
+    table.add_column("Day+3", style="green")
+    table.add_column("Day+4", style="green")
+    table.add_column("Day+5", style="green")
+    
+    # Add mean/average row (formatted as 1.5%, etc.)
+    table.add_row("Average", 
+                 format_value(results.get("day+1_mean")),
+                 format_value(results.get("day+2_mean")),
+                 format_value(results.get("day+3_mean")),
+                 format_value(results.get("day+4_mean")),
+                 format_value(results.get("day+5_mean")))
+    
+    # Add win rate row (formatted as 65%, etc.)
+    table.add_row("Win Rate",
+                 format_win_rate(results.get("day+1_win_rate")),
+                 format_win_rate(results.get("day+2_win_rate")),
+                 format_win_rate(results.get("day+3_win_rate")),
+                 format_win_rate(results.get("day+4_win_rate")),
+                 format_win_rate(results.get("day+5_win_rate")))
+    
     console.print(table)
     
     # Verbose mode option
     verbose_input = Prompt.ask("\nShow events? (Y/N)", default="N")
     if verbose_input.lower() in ("y", "yes"):
-        # Re-run scan to get event details
-        event_list = scanner.scan_price_drops(threshold=threshold) if event_type == "1" else scanner.scan_volatility_spikes(sigma=2.0)
+        # Re-run scan to get event details (include Price Surge)
+        if event_type == "1":
+            event_list = scanner.scan_price_drops(threshold=threshold)
+        elif event_type == "2":
+            event_list = scanner.scan_volatility_spikes(sigma=sigma)
+        else:  # event_type == "3"
+            event_list = scanner.scan_price_surges(threshold=threshold)
         if 'event_dates' in event_list:
             dates_table = Table(title="Detailed Events")
             dates_table.add_column("Date", style="cyan")
-            dates_table.add_column("Day+1 Return", style="green")
+            dates_table.add_column("Day+1", style="green")
+            dates_table.add_column("Day+2", style="green")
+            dates_table.add_column("Day+3", style="green")
+            dates_table.add_column("Day+4", style="green")
+            dates_table.add_column("Day+5", style="green")
             for event in event_list['event_dates']:
-                dates_table.add_row(event['date'], f"{event['day+1']:.2%}")
+                dates_table.add_row(
+                    event['date'],
+                    f"{event['day+1']:.2%}",
+                    f"{event['day+2']:.2%}",
+                    f"{event['day+3']:.2%}",
+                    f"{event['day+4']:.2%}",
+                    f"{event['day+5']:.2%}"
+                )
             console.print(dates_table)
         else:
             console.print("[yellow]No event details available.[/yellow]")
