@@ -1109,6 +1109,9 @@ def run_on_universe() -> None:
                 weekly_var = ((closes[-1] - closes[-7]) / closes[-7] * 100) if len(closes) >= 7 else None
                 monthly_var = ((closes[-1] - closes[-30]) / closes[-30] * 100) if len(closes) >= 30 else None
 
+                # Calculate 1-day return on close (close vs previous close)
+                close_return = ((closes[-1] - closes[-2]) / closes[-2] * 100) if len(closes) > 1 else 0
+
                 results.append({
                     'ticker': ticker,
                     'signal': signal,
@@ -1116,6 +1119,7 @@ def run_on_universe() -> None:
                     'pf': edge.get('long_score', 50)/100 if "BUY" in signal else edge.get('short_score', 50)/100,
                     'last_price': df['close'].iloc[-1],
                     'variations': {'daily': daily_var, 'weekly': weekly_var, 'monthly': monthly_var},
+                    'close_return': close_return,  # New field for 1-day return
                     'trend': quant.get('market_regime', {}).get('trend', 'UNKNOWN'),
                     'volatility': quant.get('market_regime', {}).get('volatility', 'UNKNOWN')
                 })
@@ -1140,6 +1144,7 @@ def run_on_universe() -> None:
     res_table.add_column("Confidence")
     res_table.add_column("Trend")
     res_table.add_column("Price", justify="right")
+    res_table.add_column("1d %", justify="right")
     res_table.add_column("7d %", justify="right")
     res_table.add_column("30d %", justify="right")
 
@@ -1153,6 +1158,7 @@ def run_on_universe() -> None:
             str(idx), res['ticker'], f"[{sig_col}]{res['signal']}[/{sig_col}]",
             res['confidence'], f"[{trend_col}]{res['trend']}[/{trend_col}]",
             f"{res['last_price']:.2f}",
+            f"[{c(res['close_return'])}]{res['close_return']:.1f}%[/]",
             f"[{c(res['variations']['weekly'])}]{res['variations']['weekly'] or 0:.1f}%[/]" if res['variations']['weekly'] is not None else "N/A",
             f"[{c(res['variations']['monthly'])}]{res['variations']['monthly'] or 0:.1f}%[/]" if res['variations']['monthly'] is not None else "N/A"
         )
