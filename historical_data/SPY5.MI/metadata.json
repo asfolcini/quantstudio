@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "SPY5.MI",
   "provider": "yahoo",
-  "data_points": 3583,
+  "data_points": 3586,
   "first_date": "2012-03-19 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:39"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:17:09"
 }

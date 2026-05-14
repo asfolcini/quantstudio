@@ -36,12 +36,163 @@ def show_main_menu() -> int:
     table.add_row("1", "DATA MANAGEMENT")
     table.add_row("2", "STATISTICAL EDGE ENGINE")
     table.add_row("3", "EVENT STUDY")
+    table.add_row("8", "NEWS ANALYSIS")
     table.add_row("9", "Configuration")
-    
+
     console.print(table)
-    
-    choice = IntPrompt.ask("\nSelect an option", choices=["0", "1", "2", "3", "9"])
+
+    choices = ["0", "1", "2", "3", "8", "9"]
+    choice = IntPrompt.ask("\nSelect an option", choices=choices)
     return choice
+
+
+
+def show_news_analysis_menu():
+        """
+        Display news analysis menu with options to generate reports.
+        """
+        while True:
+            console.clear()
+            console.print(Panel("[bold cyan]NEWS ANALYSIS[/bold cyan]", expand=False))
+
+            table = Table(title="News Analysis Options")
+            table.add_column("#", style="cyan", width=3)
+            table.add_column("Option", style="green")
+
+            table.add_row("1", "Generate Today's High-Impact Analysis (≥6)")
+            table.add_row("2", "Generate Full Report (All News)")
+            table.add_row("0", "Back")
+
+            console.print(table)
+            choices = ["0", "1", "2"]
+            choice = IntPrompt.ask("\nSelect option", choices=choices)
+
+            if choice == 0:
+                return  # Torna al menu principale
+            elif choice == 1:
+                # Genera report con filtro ≥6 e mostra debug LLM
+                import logging
+                from pathlib import Path
+                from news.analyzer import generate_analysis, save_analysis, build_prompt, call_llm
+                from news.fetcher import fetch_recent_news
+                from core.config_loader import get_config, update_config
+                
+                try:
+                    # Nascondi log INFO di news.fetcher (solo Output LLM visibile)
+                    logging.getLogger("news.fetcher").setLevel(logging.WARNING)
+                    console.print("[yellow][Thinking...] Retrieving news from feed providers, analyzing and processing with LLM AI. This may take a couple of seconds...[/yellow]\n")
+                    
+                    region = get_config().get('news_region', 'Europe')
+                    news_items = fetch_recent_news(region)
+
+                    # Mostra LLM analysis in formato strutturato
+                    llm_response = call_llm(build_prompt(region, news_items))
+
+                    # Parse JSON response (rimuovi eventuali marcatori ###JSON_START###/###JSON_END###)
+                    import json
+                    llm_response_clean = llm_response.strip("###JSON_START###").strip("###JSON_END###")
+                    llm_data = json.loads(llm_response_clean)
+
+                    # Mostra summary con settori impattati (key_themes) e data corrente
+                    today = date.today().strftime("%Y-%m-%d")
+                    key_themes = llm_data["overview"].get("key_themes", [])
+                    if key_themes:
+                        themes_text = f"[bold cyan]Settori Impattati:[/bold cyan] {', '.join(key_themes)}"
+                        summary_content = (
+                            f"[bold white]Market Summary - {today}[/bold white]\n\n"
+                            f"{llm_data['overview']['summary']}\n\n"
+                            f"{themes_text}"
+                        )
+                    else:
+                        summary_content = (
+                            f"[bold white]Market Summary - {today}[/bold white]\n\n"
+                            f"{llm_data['overview']['summary']}"
+                        )
+
+                    title_text = Text.assemble(
+                        ("NEWS ANALYSIS - ", "bold cyan"),
+                        (region, "bold white")
+                    )
+                    console.print(Panel(title_text, style="bold", expand=False))
+
+                    console.print(Panel(
+                        summary_content,
+                        title=f"[bold cyan]Market Summary - {region}[/bold cyan]",
+                        style="white on blue",
+                        expand=False
+                    ))
+                     
+                    # Solo news con impact_score >= 6 (high-impact), ordinate per score decrescente
+                    high_impact_news = sorted(
+                        [item for item in llm_data["news"] if item["impact_score"] >= 6],
+                        key=lambda x: x["impact_score"],
+                        reverse=True
+                    )
+                     
+                    for item in high_impact_news:
+                        title = item["title"]
+                        impact_score = item["impact_score"]
+                        impact_reason = item.get("impact_reason", "No reason provided")
+                        tickers = item.get("tickers", [])
+                         
+                        # Colore del testo e del bordo del Panel
+                        score_color = "red" if impact_score >= 8 else "yellow"
+                        border_color = "red" if impact_score >= 8 else "yellow"
+                        
+                        # Testo del punteggio (bold)
+                        score_text = Text(f"Impact Score: {impact_score}", style=f"bold {score_color}")
+                        
+                        # Contenuto del Panel
+                        published_at = item.get("published_at", "N/A")
+                        panel_content = (
+                            f"[dim]{published_at}[/dim] - [bold white]{title}[/bold white]\n\n"
+                            f"[bold green]{score_text}[/bold green]\n"
+                            f"{impact_reason}"
+                        )
+                         
+                        # Aggiungi tickers se presenti
+                        if tickers:
+                            tickers_text = f"[bold magenta]Tickers:[/bold magenta] {', '.join(tickers)}"
+                            panel_content += f"\n{tickers_text}"
+                         
+                        console.print(Panel(panel_content, border_style=border_color, expand=False))
+                    
+                    console.input("Premi per procedere")
+                except Exception as e:
+                    console.print(f"[bold red]Errore durante generazione news:[/]")
+                    console.print(e)
+                finally:
+                    # Ripristina il livello di log INFO per news.fetcher
+                    logging.getLogger("news.fetcher").setLevel(logging.INFO)
+            elif choice == 2:
+                # Genera report completo (tutte le notizie)
+                import logging
+                from pathlib import Path
+                from news.analyzer import generate_analysis, save_analysis
+                from news.fetcher import fetch_recent_news
+                from core.config_loader import get_config, update_config
+
+                try:
+                    # Nascondi log INFO di news.fetcher
+                    logging.getLogger("news.fetcher").setLevel(logging.WARNING)
+                    region = get_config().get('news_region', 'Europe')
+
+                    with console.status(
+                            "[bold yellow]Retrieving news, analyzing with LLM...[/bold yellow]",
+                            spinner="dots"
+                    ):
+                        news_items = fetch_recent_news(region)
+                        analysis = generate_analysis(region, news_items)
+                        output_path = save_analysis(region, analysis)
+                        # Output finale
+                        show_news_analysis(str(output_path), min_score=None)
+
+                except Exception as e:
+                    console.print("[bold red]Errore durante generazione news:[/bold red]")
+                    console.print(e)
+
+                finally:
+                    logging.getLogger("news.fetcher").setLevel(logging.INFO)
 
 
 def show_config_menu():
@@ -1225,5 +1376,9 @@ def run_ui():
         elif choice == 3:
             from events.event_tui import run_event_study
             run_event_study()
+        elif choice == 8:
+            show_news_analysis_menu()
         elif choice == 9:
             show_config_menu()
+
+

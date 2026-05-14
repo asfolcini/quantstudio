@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "BAMI.MI",
   "provider": "yahoo",
-  "data_points": 6730,
+  "data_points": 6734,
   "first_date": "2000-01-03 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:09"
+  "last_date": "2026-05-14 00:00:00",
+  "last_update": "2026-05-14 09:16:29"
 }

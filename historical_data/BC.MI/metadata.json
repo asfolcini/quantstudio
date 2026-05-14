@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "BC.MI",
   "provider": "yahoo",
-  "data_points": 3558,
+  "data_points": 3562,
   "first_date": "2012-04-27 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:10"
+  "last_date": "2026-05-14 00:00:00",
+  "last_update": "2026-05-14 09:16:31"
 }

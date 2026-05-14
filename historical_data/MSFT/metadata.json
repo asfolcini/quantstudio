@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "MSFT",
   "provider": "yahoo",
-  "data_points": 10116,
+  "data_points": 10120,
   "first_date": "1986-03-13 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-08 11:30:29"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:55"
 }

@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "EIMI.MI",
   "provider": "yahoo",
-  "data_points": 2952,
+  "data_points": 2955,
   "first_date": "2014-07-24 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:14"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:37"
 }

@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "XLKS.MI",
   "provider": "yahoo",
-  "data_points": 4118,
+  "data_points": 4121,
   "first_date": "2009-12-16 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:47"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:17:18"
 }

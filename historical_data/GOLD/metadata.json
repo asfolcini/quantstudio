@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "GOLD",
   "provider": "yahoo",
-  "data_points": 3055,
+  "data_points": 3059,
   "first_date": "2014-03-17 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-08 11:30:20"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:45"
 }

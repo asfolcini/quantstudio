@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "TEN.MI",
   "provider": "yahoo",
-  "data_points": 5959,
+  "data_points": 5963,
   "first_date": "2002-12-17 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:42"
+  "last_date": "2026-05-14 00:00:00",
+  "last_update": "2026-05-14 09:17:12"
 }

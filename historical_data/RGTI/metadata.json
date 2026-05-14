@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "RGTI",
   "provider": "yahoo",
-  "data_points": 1267,
+  "data_points": 1271,
   "first_date": "2021-04-22 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-08 11:30:35"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:17:04"
 }

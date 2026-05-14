@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "CSSPX.MI",
   "provider": "yahoo",
-  "data_points": 3969,
+  "data_points": 3972,
   "first_date": "2010-05-19 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:13"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:36"
 }

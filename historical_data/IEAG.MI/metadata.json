@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "IEAG.MI",
   "provider": "yahoo",
-  "data_points": 4087,
+  "data_points": 4090,
   "first_date": "2009-09-30 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:21"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:46"
 }

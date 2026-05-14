@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "RACE.MI",
   "provider": "yahoo",
-  "data_points": 2628,
+  "data_points": 2632,
   "first_date": "2016-01-04 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:34"
+  "last_date": "2026-05-14 00:00:00",
+  "last_update": "2026-05-14 09:17:02"
 }

@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "MEUD.MI",
   "provider": "yahoo",
-  "data_points": 556,
+  "data_points": 559,
   "first_date": "2024-02-19 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:27"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:53"
 }

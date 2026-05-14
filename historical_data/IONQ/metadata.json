@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "IONQ",
   "provider": "yahoo",
-  "data_points": 1342,
+  "data_points": 1346,
   "first_date": "2021-01-04 00:00:00",
-  "last_date": "2026-05-07 00:00:00",
-  "last_update": "2026-05-08 11:30:24"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:16:49"
 }

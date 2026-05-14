@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "SWDA.MI",
   "provider": "yahoo",
-  "data_points": 4059,
+  "data_points": 4062,
   "first_date": "2009-09-25 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:41"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:17:11"
 }

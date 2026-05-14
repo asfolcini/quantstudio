@@ -4,8 +4,8 @@
   "currency": "USD",
   "ticker": "CL=F",
   "provider": "yahoo",
-  "data_points": 6453,
+  "data_points": 6457,
   "first_date": "2000-08-23 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:12"
+  "last_date": "2026-05-14 00:00:00",
+  "last_update": "2026-05-14 09:16:34"
 }

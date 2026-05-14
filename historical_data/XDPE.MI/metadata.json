@@ -4,8 +4,8 @@
   "currency": "EUR",
   "ticker": "XDPE.MI",
   "provider": "yahoo",
-  "data_points": 2399,
+  "data_points": 2402,
   "first_date": "2015-04-15 00:00:00",
-  "last_date": "2026-05-08 00:00:00",
-  "last_update": "2026-05-08 11:30:46"
+  "last_date": "2026-05-13 00:00:00",
+  "last_update": "2026-05-14 09:17:17"
 }
