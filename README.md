@@ -10,6 +10,7 @@ QuantStudio is a financial data analysis tool for collecting, processing, and an
 - **Regime Detection**: Identify market regimes (trending, mean-reverting) using statistical models.
 - **Strategy Ranking**: Rank assets based on metrics like momentum, volatility, or custom scores.
 - **Historical Data**: Store and access cleaned datasets for backtesting and research.
+- **News Analysis**: Real-time parsing of global RSS feeds (e.g., Google News) with LLM AI to score macroeconomic/geopolitical events.
 - **CLI/TUI Interface**: Command-line tools for daily operations, reporting, and configuration.
 
 ### What Each Function Does (And Why It Matters)
@@ -72,3 +73,8 @@ Scans your asset universe to find high-probability trade setups, filtered by mar
 
 ## Documentation
 For details, visit [surprisalx.com/qstudio](https://surprisalx.com/qstudio).
+
+**Feature-Specific Guides**:
+- [Statistical Edge Engine](docs/2.%20Statistical%20Edge%20Engine.md) – Regime detection & ranking.
+- [Data Management](docs/1.%20Data%20Management.md) – Fetch, clean, and validate asset data.
+- [News Analysis](docs/8.%20NEWS%20ANALYSIS.md) – Real-time news parsing and impact scoring.
